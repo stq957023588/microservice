@@ -1,0 +1,10 @@
+server:
+  port: 2222
+
+
+fool:
+  value: DD
+
+feign:
+  hystrix:
+    enabled: true

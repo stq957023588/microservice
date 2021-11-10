@@ -1,0 +1,13 @@
+server:
+  port: 2223
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:1111/users/current
+
+    client:
+      id: client_2
+      client-secret: 123456
+      access-token-uri: http://localhost:1111/oauth/token
+      scope: all
