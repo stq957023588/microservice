@@ -34,11 +34,7 @@ public class CustomizeFilterInvocationSecurityMetadataSource implements FilterIn
             return SecurityConfig.createList("SUPER");
         }
 
-        if (requestUrl.startsWith("/random-student")) {
-            return SecurityConfig.createList();
-        }
-
-        return SecurityConfig.createList(attributes);
+        return SecurityConfig.createList();
     }
 
     @Override

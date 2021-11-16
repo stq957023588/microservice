@@ -2,9 +2,10 @@ package com.fool.microservice.auth.service;
 
 import com.fool.microservice.auth.entity.User;
 import com.fool.microservice.auth.entity.UserAuthority;
+import com.fool.microservice.auth.entity.UserAuthorityRelationship;
 import com.fool.microservice.auth.mapper.AuthorityMapper;
+import com.fool.microservice.auth.mapper.UserAuthorityRelationshipMapper;
 import com.fool.microservice.auth.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,12 +27,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserDetailsServiceImpl(UserMapper userMapper, AuthorityMapper authorityMapper,
-                                  PasswordEncoder passwordEncoder) {
+    private final UserAuthorityRelationshipMapper userAuthorityRelationshipMapper;
+
+    public UserDetailsServiceImpl(UserMapper userMapper, AuthorityMapper authorityMapper, PasswordEncoder passwordEncoder, UserAuthorityRelationshipMapper userAuthorityRelationshipMapper) {
         this.userMapper = userMapper;
         this.authorityMapper = authorityMapper;
         this.passwordEncoder = passwordEncoder;
+        this.userAuthorityRelationshipMapper = userAuthorityRelationshipMapper;
     }
 
     @Override
@@ -53,5 +55,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         userMapper.insertSelective(user);
     }
+
+    public void addUserAuthority(Integer userId, Integer authority) {
+        UserAuthorityRelationship userAuthorityRelationship = new UserAuthorityRelationship();
+        userAuthorityRelationship.setUserId(userId);
+        userAuthorityRelationship.setAuthorityId(authority);
+
+        userAuthorityRelationshipMapper.insertSelective(userAuthorityRelationship);
+    }
+
 
 }

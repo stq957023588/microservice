@@ -1,5 +1,6 @@
 package com.fool.microservice.provider.controller;
 
+import com.fool.microservice.provider.service.EventTestService;
 import com.fool.microservice.provider.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProviderController {
 
     private ProviderService providerService;
+
+    private EventTestService eventTestService;
+
+    @Autowired
+    public void setEventTestService(EventTestService eventTestService) {
+        this.eventTestService = eventTestService;
+    }
 
     @Autowired
     public void setProviderService(ProviderService providerService) {
@@ -34,4 +42,12 @@ public class ProviderController {
     public String authTest2() {
         return "Auth test";
     }
+
+    @RequestMapping(value = "event-test", method = RequestMethod.GET)
+    public String eventTest(String value) {
+        eventTestService.test(value);
+        return "SUCCESS";
+    }
+
+
 }
