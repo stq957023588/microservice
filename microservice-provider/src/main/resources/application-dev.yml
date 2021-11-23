@@ -1,6 +1,7 @@
 server:
   port: 2223
 
+
 security:
   oauth2:
     resource:
@@ -11,3 +12,9 @@ security:
       client-secret: 123456
       access-token-uri: http://localhost:1111/oauth/token
       scope: all
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/fool
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
